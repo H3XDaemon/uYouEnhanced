@@ -49,7 +49,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
 }
 - (void)addNotificationsTabToRenderer {
     for (YTIPivotBarSupportedRenderers *renderer in self.itemsArray) {
-        if ([renderer.pivotBarItemRenderer.title.text isEqualToString:@"Notifications"]) {
+        if ([renderer.pivotBarItemRenderer.title.stringWithFormattingRemoved isEqualToString:@"Notifications"]) {
             return;
         }
     }
@@ -59,11 +59,12 @@ NSBundle *tweakBundle = uYouPlusBundle();
     YTICommand *navigationEndpoint = [[YTICommand alloc] init];
     navigationEndpoint.browseEndpoint.browseId = @"FEnotifications_inbox";
     notificationsItemRenderer.navigationEndpoint = navigationEndpoint;
-    YTIFormattedString *title = [[YTIFormattedString alloc] init];
-    title.text = @"Notifications";
+    YTIFormattedString *title = [YTIFormattedString formattedStringWithString:@"Notifications"];
     notificationsItemRenderer.title = title;
     YTIAccessibilitySupportedDatas *accessibility = [[YTIAccessibilitySupportedDatas alloc] init];
-    accessibility.accessibilityData.label = @"Notifications";
+    YTIAccessibilityData *accessibilityData = [[YTIAccessibilityData alloc] init];
+    accessibilityData.label = @"Notifications";
+    accessibility.accessibilityData = accessibilityData;
     notificationsItemRenderer.accessibility = accessibility;
     YTIIcon *selectedIcon = [[YTIIcon alloc] init];
     selectedIcon.iconType = NOTIFICATIONS;
