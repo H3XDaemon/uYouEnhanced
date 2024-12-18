@@ -49,7 +49,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
 }
 - (void)addNotificationsTabToRenderer {
     for (YTIPivotBarSupportedRenderers *renderer in self.itemsArray) {
-        if ([renderer.pivotBarItemRenderer.title.stringWithFormattingRemoved isEqualToString:@"Notifications"]) {
+        if ([renderer.pivotBarItemRenderer.title stringWithFormattingRemoved].isEqualToString:@"Notifications") {
             return;
         }
     }
@@ -67,7 +67,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
     accessibility.accessibilityData = accessibilityData;
     notificationsItemRenderer.accessibility = accessibility;
     YTIIcon *selectedIcon = [[YTIIcon alloc] init];
-    selectedIcon.iconType = NOTIFICATIONS;
+    selectedIcon.iconType = eNOTIFICATIONS;
     notificationsItemRenderer.icon = selectedIcon;
     YTIIcon *unselectedIcon = [[YTIIcon alloc] init];
     unselectedIcon.iconType = NOTIFICATIONS_NONE;
