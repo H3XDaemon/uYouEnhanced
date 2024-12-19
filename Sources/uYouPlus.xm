@@ -56,13 +56,11 @@ NSBundle *tweakBundle = uYouPlusBundle();
             YTIIcon *selectedIcon = itemBar.icon;
             if (selectedIcon) {
                 selectedIcon.iconType = NOTIFICATIONS;
-                selectedIcon.iconSize = CGSizeMake(24, 24);
             }
 
             YTIIcon *unselectedIcon = [[%c(YTIIcon) alloc] init];
             if (unselectedIcon) {
                 unselectedIcon.iconType = NOTIFICATIONS_NONE;
-                unselectedIcon.iconSize = CGSizeMake(24, 24);
             }
 
             [itemBar setValue:unselectedIcon forKey:@"unselectedIcon"];
