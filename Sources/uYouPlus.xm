@@ -53,11 +53,17 @@ NSBundle *tweakBundle = uYouPlusBundle();
         YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
         [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
 
-        YTIIcon *selectedIcon = [[YTIIcon alloc] init];
-        selectedIcon.iconType = NOTIFICATIONS;
+        YTIIcon *selectedIcon = itemBar.icon;
+        if (selectedIcon) {
+            selectedIcon.iconType = NOTIFICATIONS;
+        }
 
-        [itemBar setIcon:selectedIcon];
-        
+        YTIIcon *unselectedIcon = itemBar.icon;
+        if (unselectedIcon) {
+            selectedIcon.iconType = NOTIFICATIONS_NONE;
+        }
+
+        [itemBar setValue:unselectedIcon forKey:@"unselectedIcon"];     
         [itemBar setNavigationEndpoint:command];
         YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
         [itemBar setTitle:formatString];
