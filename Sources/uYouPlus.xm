@@ -41,6 +41,17 @@ NSBundle *tweakBundle = uYouPlusBundle();
 }
 %end
 
+/*
+%hook YTPivotBarItemViewAccessibilityControl
+- (UIImage *)pivotBarItemIconImageWithIconType:(int)type color:(UIColor *)color useNewIcons:(BOOL)isNew selected:(BOOL)isSelected {
+    // Create image
+    NSString *imageName = isSelected ? @"ic_notifications" : @"yt_outline_bell_24pt"; // selected = ic_notifications
+    // Set our image if icon type is 1
+    return type == 1 ? [al imageNamed:imageName] : %orig;
+}
+%end
+*/
+
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
     @try {
@@ -56,13 +67,8 @@ NSBundle *tweakBundle = uYouPlusBundle();
             [icon setIconType:1];
             [itemBar setNavigationEndpoint:command];
 
-            [itemBar setNavigationEndpoint:command];
             YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
             [itemBar setTitle:formatString];
-
-            YTAssetLoader *assetLoader = [YTAssetLoader sharedInstance];
-            UIImage *selectedIconImage = [assetLoader loadImageNamed:@"ic_notifications"];
-            UIImage *unselectedIconImage = [assetLoader loadImageNamed:@"yt_outline_bell_24pt"];
 
             YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
             [barSupport setPivotBarItemRenderer:itemBar];
